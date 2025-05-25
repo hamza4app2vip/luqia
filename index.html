@@ -1,730 +1,519 @@
 <!DOCTYPE html>
-
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>استراتيجية التمويل المتقدمة لمشروع لُقيا</title>
+  <title>منصة لُقيا - منصة المفقودات والمعثورات اليمنية</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Google Fonts for Arabic -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* الأنماط الأساسية */
     body {
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #f5fafd 0%, #e3f6ff 100%);
       font-family: 'Cairo', sans-serif;
-      overflow-x: hidden;
-      position: relative;
-      scroll-behavior: smooth;
+      background: linear-gradient(135deg, #f5fafd 0%, #e3f6ff 100%);
+      color: #222;
       transition: background 0.5s, color 0.5s;
+      scroll-behavior: smooth;
     }
-    body.dark-mode {
-      background: linear-gradient(135deg, #181c22 0%, #232b36 100%);
-      color: #e6eaf1;
+    header {
+      background: #43b0ff;
+      color: #fff;
+      padding: 0 0 0 0;
+      box-shadow: 0 2px 16px #43b0ff22;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
-    .dark-mode .glass {
-      background: rgba(34, 40, 49, 0.85);
-      box-shadow: 0 8px 32px 0 rgba(40, 60, 90, 0.18);
-      border: 2px solid #2e3a4a80;
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      position: relative;
     }
-    .dark-mode h1, .dark-mode h2, .dark-mode h3 {
-      color: #e6eaf1;
-      text-shadow: 0 2px 16px #232b36a0;
+    .navbar .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #fff;
+      text-shadow: 0 2px 8px #2222;
+      z-index: 12;
     }
-    .dark-mode h4 {
-      color: #e8c901;
+    .navbar nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      transition: right 0.3s;
     }
-    .dark-mode h1 {
-      background: linear-gradient(45deg, #e6eaf1, #43b0ff);
-      color: transparent;
-      -webkit-background-clip: text;
-      background-clip: text;
+    .navbar nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 28px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      white-space: nowrap;
     }
-    .dark-mode h2 {
-      color: #43b0ff;
-      text-shadow: 0 1px 8px #293a4460;
+    .navbar nav a.cta-btn {
+      margin-right: 18px;
+      background: #43b0ff;
+      color: #fff;
+      border: 2px solid #fff;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      box-shadow: 0 2px 12px #43b0ff33;
+      transition: background 0.2s, color 0.2s;
     }
-    .dark-mode h2::after {
-      color: #ffe1c9;
-    }
-    .dark-mode h3 {
-      color: #ffe1c9;
-    }
-    .dark-mode .section {
-      background: rgba(34, 40, 49, 0.65);
-      border: 1px solid #2e3a4a;
-      box-shadow: 0 2px 20px #232b3630;
-    }
-    .dark-mode .section:hover {
-      box-shadow: 0 12px 40px rgba(67, 176, 255, 0.10);
-    }
-    .dark-mode .highlight {
-      color: #ffe1c9;
-      background: linear-gradient(90deg, #293a44 10%, #43b0ff 70%);
-    }
-    .dark-mode .highlight::before {
-      background: #293a4480;
-    }
-    .dark-mode .shape.circle {
-      background: radial-gradient(circle at 40% 60%, #232b36cc, #293a44 70%);
-    }
-    .dark-mode .shape.square {
-      background: linear-gradient(135deg, #293a44, #232b36cc);
-    }
-    .dark-mode .shape.triangle {
-      border-bottom: 140px solid #43b0ff44;
-    }
-    .dark-mode .toggle-dark {
-      background: #63a4fe;
-      color: #ffe1c9;
-      border: 1px solid #43b0ff;
-    }
-    .toggle-dark {
-      position: fixed;
-      top: 22px;
-      left: 22px;
-      z-index: 99;
+    .navbar nav a.cta-btn:hover {
       background: #fff;
       color: #293a44;
-      border: 1px solid #43b0ff;
-      border-radius: 50px;
-      padding: 8px 22px;
-      font-size: 1.1rem;
+    }
+    .navbar .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #fff;
       cursor: pointer;
-      box-shadow: 0 2px 8px #43b0ff22;
-      transition: background 0.4s, color 0.4s;
-      outline: none;
-      font-family: 'Cairo', sans-serif;
+      z-index: 15;
+      margin-right: 8px;
     }
-    .toggle-dark:active {
-      transform: scale(0.97);
+    @media (max-width: 800px) {
+      .features, .stats {
+        flex-direction: column;
+        gap: 18px;
+      }
+      .feature-card, .stat {
+        width: 100%;
+      }
+      .navbar {
+        flex-direction: row;
+        gap: 0;
+        padding: 12px 8px;
+      }
+      .navbar nav {
+        position: fixed;
+        top: 0;
+        right: -100vw;
+        height: 100vh;
+        width: 70vw;
+        max-width: 320px;
+        background: #43b0ff;
+        box-shadow: -2px 0 16px #43b0ff33;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 24px 24px 24px;
+        gap: 18px;
+        z-index: 20;
+        transition: right 0.3s;
+      }
+      .navbar nav.open {
+        right: 0;
+      }
+      .navbar nav a {
+        margin: 0 0 18px 0;
+        font-size: 1.15rem;
+        width: 100%;
+        text-align: right;
+      }
+      .navbar nav a.cta-btn {
+        margin: 0 0 18px 0;
+        width: 100%;
+        text-align: center;
+        font-size: 1.1rem;
+        padding: 12px 0;
+      }
+      .navbar .menu-toggle {
+        display: block;
+      }
     }
-
-    /* تأثير الزجاج */
-    .glass {
-      background: rgba(255, 255, 255, 0.70);
-      box-shadow: 0 8px 32px 0 rgba(90, 170, 255, 0.10);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: 28px;
-      border: 2px solid #a3eaff60;
-      margin: 32px auto;
-      max-width: 900px;
-      padding: 44px 32px;
-      position: relative;
-      z-index: 2;
-      animation: fadeIn 1.2s ease-out;
-      transform-origin: top center;
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      section {
+        padding: 18px 6px;
+      }
+      main {
+        padding: 12px 2px 32px 2px;
+      }
+      .navbar nav {
+        width: 90vw;
+        max-width: none;
+        padding: 80px 12px 12px 12px;
+      }
     }
-
-    /* العناوين */
-    h1, h2, h3 {
-      color: #293a44;
-      margin-top: 0;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    h4 {
-      color: #CD2626;
-      margin-top: 0;
-      font-size: 15px ;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    h1 {
-      font-size: 2.3rem;
+    .hero h1 {
+      font-size: 2.8rem;
       margin-bottom: 18px;
-      border-bottom: 2px solid #ffbfae44;
-      padding-bottom: 10px;
-      text-shadow: 0 2px 16px #f7f6f3a0;
-      background: linear-gradient(45deg, #3a7ca5 10%, #f9d6c1 90%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: gradientFlow 6s ease infinite;
-      background-size: 200% 200%;
+      font-weight: 800;
       letter-spacing: 2px;
+      text-shadow: 0 2px 16px #232b36a0;
     }
-
-    h2 {
-      font-size: 1.6rem;
-      margin: 24px 0 12px 0;
-      color: #ff7b54;
-      text-shadow: 0 1px 8px #fcd6cc60;
-      position: relative;
-      padding-right: 40px;
-      transition: all 0.3s ease;
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
     }
-
-    h2::after {
-      content: "✦";
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
+    .cta-btn {
+      background: #ffe1c9;
       color: #43b0ff;
-      font-size: 1.8rem;
-      opacity: 0.6;
-    }
-
-    h3 {
-      font-size: 1.1rem;
-      color: #43b0ff;
-    }
-
-    /* الأقسام */
-    .section {
-      margin-bottom: 36px;
-      padding: 24px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.36);
-      border: 1px solid #ffe3d9;
-      box-shadow: 0 2px 20px #e3f6ff30;
-      transition: all 0.3s;
-      opacity: 0;
-      transform: translateX(30px);
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .section.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .section:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(90, 170, 255, 0.15);
-    }
-
-    /* التأكيدات */
-    .highlight {
-      color: #43b0ff;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 38px;
+      font-size: 1.2rem;
       font-weight: bold;
-      background: linear-gradient(90deg, #ffe1c9 10%, #b7f6f6 70%);
-      padding: 1px 8px;
-      border-radius: 10px;
-      position: relative;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #43b0ff33;
+      transition: background 0.2s, color 0.2s;
     }
-
-    .highlight::before {
+    .cta-btn:hover {
+      background: #fff;
+      color: #293a44;
+    }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px 64px 16px;
+    }
+    section {
+      margin-bottom: 48px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 20px #e3f6ff30;
+      padding: 36px 28px;
+      position: relative;
+      transition: box-shadow 0.3s, opacity 0.8s, transform 0.8s;
+      opacity: 0;
+      transform: translateY(40px);
+      will-change: opacity, transform;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .feature-card {
+      background: #e3f6ff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px #43b0ff11;
+      padding: 28px 22px;
+      width: 260px;
+      text-align: center;
+      transition: box-shadow 0.3s, transform 0.3s, opacity 0.8s, transform 0.8s;
+      opacity: 0;
+      transform: scale(0.95) translateY(40px);
+      will-change: opacity, transform;
+    }
+    .feature-card.visible {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      animation: cardPop 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    @keyframes cardPop {
+      0% { opacity: 0; transform: scale(0.95) translateY(40px); }
+      80% { opacity: 1; transform: scale(1.05) translateY(-8px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .cta-btn {
+      background: #ffe1c9;
+      color: #43b0ff;
+      border: none;
+      border-radius: 30px;
+      padding: 14px 38px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #43b0ff33;
+      transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-btn:hover {
+      background: #fff;
+      color: #293a44;
+      transform: scale(1.06) translateY(-2px);
+      box-shadow: 0 6px 24px #43b0ff44;
+    }
+    .cta-btn:active {
+      background: #43b0ff;
+      color: #fff;
+      box-shadow: 0 2px 8px #43b0ff33;
+      transform: scale(0.98);
+    }
+    nav a {
+      position: relative;
+      overflow: hidden;
+    }
+    nav a::after {
       content: "";
       position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: #ffe1c9;
+      transition: width 0.3s, left 0.3s;
+    }
+    nav a:hover::after, nav a.active::after {
       width: 100%;
-      height: 12px;
-      background: #ffe1c980;
-      bottom: 2px;
       left: 0;
-      z-index: -1;
-      border-radius: 4px;
     }
-
-    /* الأشكال العائمة */
-    .shape {
-      position: absolute;
-      z-index: 0;
-      opacity: 0.16;
-      filter: blur(0.5px);
-      animation: float 4s infinite ease-in-out alternate;
-      transition: all 2s ease;
+    .feature-card:hover {
+      box-shadow: 0 8px 32px #43b0ff33;
+      transform: translateY(-6px) scale(1.03);
     }
-
-    .shape.circle { 
-      width: 180px; 
-      height: 180px; 
-      border-radius: 50%;
-      background: radial-gradient(circle at 40% 60%, #b7f6f6cc, #fff0e8 70%);
-      top: 60px; 
-      left: 5vw;
-      animation-delay: 0s;
+    .feature-card h4 {
+      color: #43b0ff;
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      font-weight: bold;
     }
-
-    .shape.square { 
-      width: 110px; 
-      height: 110px; 
-      border-radius: 20px;
-      background: linear-gradient(135deg, #fff0e8, #b7f6f6cc);
-      bottom: 80px; 
-      right: 7vw;
-      animation-delay: 2s;
+    .feature-card p {
+      color: #293a44;
+      font-size: 1rem;
+      margin: 0;
     }
-
-    .shape.triangle {
-      width: 0; 
-      height: 0;
-      border-left: 80px solid transparent;
-      border-right: 80px solid transparent;
-      border-bottom: 140px solid #ffe1c944;
-      left: 70vw; 
-      top: 350px;
-      animation-delay: 1s;
-      filter: blur(2px);
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      margin-top: 32px;
     }
-
-    /* الرسوم المتحركة */
-    @keyframes float {
-      from { transform: translateY(-10px) scale(1);}
-      to   { transform: translateY(30px) scale(1.04);}
+    .stat {
+      background: #fff0e8;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px #ff7b5411;
+      padding: 24px 18px;
+      width: 180px;
+      text-align: center;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .stat h5 {
+      color: #ff7b54;
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+      font-weight: bold;
     }
-
-    @keyframes gradientFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .stat p {
+      color: #293a44;
+      font-size: 1rem;
+      margin: 0;
     }
-
-    /* التجاوب */
+    footer {
+      background: #232b36;
+      color: #fff;
+      text-align: center;
+      padding: 32px 0 16px 0;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      margin-top: 48px;
+    }
+    @media (max-width: 800px) {
+      .features, .stats {
+        flex-direction: column;
+        gap: 18px;
+      }
+      .feature-card, .stat {
+        width: 100%;
+      }
+      .navbar {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
     @media (max-width: 600px) {
-      .glass { padding: 18px 8px; }
-      h1 { font-size: 1.3rem; }
-      h2 { font-size: 1.1rem; }
-      .section { padding: 12px; }
-      h2::after { font-size: 1.2rem; }
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      section {
+        padding: 18px 6px;
+      }
+      main {
+        padding: 12px 2px 32px 2px;
+      }
     }
   </style>
 </head>
 <body>
-  <button class="toggle-dark" id="toggleDark">🌙 وضع ليلي</button>
-  <!-- 3D Floating Shapes -->
-  <div class="shape circle"></div>
-  <div class="shape square"></div>
-  <div class="shape triangle"></div>
-
-  <!-- Glass Container -->
-  <div class="glass">
-    <h1>استراتيجية التمويل المتقدمة لمشروع <span class="highlight">لُقيا</span></h1>
-    <div class="section visible">
-      <h2>ملخص تنفيذي</h2>
-      <p>
-        تقدم هذه الوثيقة استراتيجية متكاملة لتعزيز الاستدامة المالية لمشروع لُقيا من خلال نظام إعلانات متوازن وخطة عضوية مميزة (بريميوم) مبتكرة. تم تصميم هذه الاستراتيجية لتحقيق التوازن بين تحقيق إيرادات كافية لاستمرارية المشروع وتطويره، مع الحفاظ على تجربة مستخدم ممتازة وعدم التأثير على الهدف الأساسي للمشروع.
-      </p>
+  <header>
+    <div class="navbar">
+      <span class="logo">لُقيا</span>
+      <button class="menu-toggle" aria-label="فتح القائمة">&#9776;</button>
+      <nav>
+        <a href="#about">عن لُقيا</a>
+        <a href="#features">المميزات</a>
+        <a href="#stats">الإحصائيات</a>
+        <a href="#business">نموذج الأعمال</a>
+        <a href="#contact">تواصل</a>
+        <a href="لقيا.html" class="cta-btn">عرض صفحة دراسة الجدوى</a>
+        <a href="C.html" class="cta-btn">عرض صفحة استراتيجية التمويل</a>
+      </nav>
     </div>
-    <div class="section visible">
-      <h2>1. استراتيجية الإعلانات المتكاملة</h2>
-      <h3>1.1 نظام إعلانات Google المتكامل</h3>
-      <h4>1.1.1 أنواع الإعلانات المقترحة</h4>
+  </header>
+  <section class="hero">
+    <h1>منصة لُقيا - مجتمع المفقودات والمعثورات في اليمن</h1>
+    <p>لُقيا هي منصة تقنية مبتكرة تساعدك في الإبلاغ عن المفقودات والعثور على الممتلكات الضائعة بسهولة وأمان. انضم إلينا لتعزيز قيم الأمانة والتكافل المجتمعي.</p>
+    <a href="#contact" class="cta-btn">انضم الآن</a>
+  </section>
+  <main>
+    <section id="about">
+      <h2>عن لُقيا</h2>
+      <p>مشروع لُقيا هو منصة متكاملة تتيح للمستخدمين الإبلاغ عن المفقودات والمعثورات، وتسهيل عملية إعادة الممتلكات المفقودة لأصحابها من خلال تطبيق للهاتف المحمول وموقع ويب. رؤيتنا أن نصبح المنصة الرائدة في اليمن لإدارة المفقودات والمعثورات، مع تعزيز قيم الأمانة والتكافل المجتمعي.</p>
       <ul>
-        <li><b>إعلانات البانر الصغيرة</b>: إعلانات صغيرة في أسفل الشاشة لا تعيق تجربة المستخدم</li>
-        <li><b>الإعلانات المدمجة</b>: إعلانات تظهر بين قوائم المفقودات والمعثورات (كل 10-15 عنصر)</li>
-        <li><b>إعلانات الفاصل الزمني</b>: تظهر بعد إكمال عملية مهمة (مثل نشر بلاغ جديد)</li>
+        <li>تطوير منصة تقنية سهلة الاستخدام للإبلاغ عن المفقودات والمعثورات</li>
+        <li>بناء قاعدة مستخدمين واسعة تغطي مختلف مناطق اليمن</li>
+        <li>تحقيق الاستدامة المالية للمشروع دون التأثير على مجانية الخدمات الأساسية</li>
+        <li>تعزيز الوعي المجتمعي بأهمية إعادة المفقودات لأصحابها</li>
       </ul>
-      <h4>1.1.2 ضوابط تحسين تجربة المستخدم</h4>
+    </section>
+    <section id="stats">
+      <h2>إحصائيات متوقعة</h2>
+      <div class="stats">
+        <div class="stat">
+          <h5>مليون+</h5>
+          <p>مستخدم متوقع في السنة الأولى</p>
+        </div>
+        <div class="stat">
+          <h5>250,000+</h5>
+          <p>بلاغ متوقع في السنة الأولى</p>
+        </div>
+        <div class="stat">
+          <h5>5,000,000+</h5>
+          <p>مستخدم متوقع في السنة الثالثة</p>
+        </div>
+        <div class="stat">
+          <h5>2,500,000+</h5>
+          <p>بلاغ متوقع في السنة الثالثة</p>
+        </div>
+      </div>
+    </section>
+    <section id="business">
+      <h2>نموذج الأعمال والإيرادات</h2>
+      <h3>مصادر الإيرادات</h3>
       <ul>
-        <li>عدم عرض إعلانات منبثقة مزعجة</li>
-        <li>تحديد الحد الأقصى لعدد الإعلانات (3-4 إعلانات في الجلسة الواحدة)</li>
-        <li>إمكانية إغلاق الإعلانات بسهولة</li>
-        <li>عدم عرض إعلانات في صفحات المحادثات أو صفحات المعلومات الحساسة</li>
+        <li>برنامج الرعاية المحلية (ذهبي، فضي، برونزي)</li>
+        <li>إعلانات محلية بسيطة</li>
+        <li>خدمات التوثيق الاختيارية</li>
+        <li>خدمات التوصيل والاسترجاع</li>
+        <li>حلول مؤسسية مخصصة</li>
+        <li>تبرعات مجتمعية</li>
+        <li>منتجات مساعدة (ملصقات QR، بطاقات تعريفية)</li>
       </ul>
-      <h4>1.1.3 الإيرادات المتوقعة من إعلانات Google من المستخدمين اليمنين</h4>
+      <h3>إجمالي الإيرادات المتوقعة</h3>
       <ul>
-        <li><b>السنة الأولى</b>: 3,000 دولار (بمتوسط 250 دولار شهرياً)</li>
-        <li><b>السنة الثانية</b>: 9,000 دولار (بمتوسط 750 دولار شهرياً)</li>
-        <li><b>السنة الثالثة</b>: 18,000 دولار (بمتوسط 1,500 دولار شهرياً)</li>
+        <li>السنة الأولى: 19,100 دولار</li>
+        <li>السنة الثانية: 36,200 دولار</li>
+        <li>السنة الثالثة: 66,000 دولار</li>
       </ul>
-      <h3>1.2 نظام الإعلانات المحلية المخصصة</h3>
-      <h4>1.2.1 أنواع الإعلانات المحلية</h4>
-      <ul>
-        <li><b>إعلانات الرعاية</b>: شعارات الشركات المحلية في صفحة "الداعمين"</li>
-        <li><b>الإعلانات المستهدفة جغرافياً</b>: إعلانات تظهر حسب موقع المستخدم في اليمن</li>
-        <li><b>إعلانات الخدمات ذات الصلة</b>: خدمات مرتبطة بالمفقودات (مثل خدمات التوصيل، التأمين، إلخ)</li>
-      </ul>
-      <h4>1.2.2 باقات الإعلانات المحلية</h4>
-      <ul>
-        <li><b>الباقة الأساسية</b>: 50 دولار شهرياً (إعلان في منطقة واحدة)</li>
-        <li><b>الباقة المتوسطة</b>: 100 دولار شهرياً (إعلان في 3 مناطق)</li>
-        <li><b>الباقة الشاملة</b>: 200 دولار شهرياً (إعلان في جميع المناطق)</li>
-      </ul>
-      <h4>1.2.3 الإيرادات المتوقعة من الإعلانات المحلية</h4>
-      <ul>
-        <li><b>السنة الأولى</b>: 6,000 دولار (10 معلنين بمتوسط)</li>
-        <li><b>السنة الثانية</b>: 12,000 دولار (20 معلن بمتوسط)</li>
-        <li><b>السنة الثالثة</b>: 24,000 دولار (40 معلن بمتوسط)</li>
-      </ul>
-      <h3>1.3 لوحة تحكم المعلنين</h3>
-      <ul>
-        <li>واجهة سهلة الاستخدام للمعلنين المحليين</li>
-        <li>إحصائيات وتقارير أداء الإعلانات</li>
-        <li>إمكانية تخصيص الإعلانات حسب المنطقة والفئة</li>
-      </ul>
+    </section>
+    <section id="features" style="margin-bottom:48px; background:linear-gradient(120deg,#f5fafd 60%,#e3f6ff 100%); border-radius:22px; box-shadow:0 4px 32px #43b0ff11; padding:48px 24px;">
+      <h2 style="text-align:center; color:#232b36; font-size:2.1rem; margin-bottom:36px; letter-spacing:1px;">مزايا لُقيا الجديدة</h2>
+      <div style="display:flex; flex-wrap:wrap; gap:36px; justify-content:center; align-items:stretch;">
+        <div style="flex:1 1 260px; min-width:240px; max-width:320px; background:#fff; border-radius:18px; box-shadow:0 2px 16px #43b0ff22; padding:32px 20px; display:flex; flex-direction:column; align-items:center; transition:box-shadow 0.3s,transform 0.3s;">
+          <div style="font-size:2.7rem; color:#43b0ff; margin-bottom:14px;">🌐</div>
+          <h4 style="color:#43b0ff; font-size:1.15rem; margin-bottom:10px;">شبكة أمان مجتمعية</h4>
+          <p style="color:#293a44; text-align:center;">ربط المستخدمين في جميع أنحاء اليمن لتسهيل العثور على المفقودات بسرعة وفعالية من خلال شبكة تواصل موثوقة.</p>
+        </div>
+        <div style="flex:1 1 260px; min-width:240px; max-width:320px; background:#f0faff; border-radius:18px; box-shadow:0 2px 16px #ff7b5411; padding:32px 20px; display:flex; flex-direction:column; align-items:center; transition:box-shadow 0.3s,transform 0.3s;">
+          <div style="font-size:2.7rem; color:#ff7b54; margin-bottom:14px;">🧠</div>
+          <h4 style="color:#ff7b54; font-size:1.15rem; margin-bottom:10px;">ذكاء اصطناعي متقدم</h4>
+          <p style="color:#293a44; text-align:center;">استخدام تقنيات الذكاء الاصطناعي لمطابقة البلاغات واقتراح حلول ذكية لاسترجاع الممتلكات.</p>
+        </div>
+        <div style="flex:1 1 260px; min-width:240px; max-width:320px; background:#fff; border-radius:18px; box-shadow:0 2px 16px #43b0ff22; padding:32px 20px; display:flex; flex-direction:column; align-items:center; transition:box-shadow 0.3s,transform 0.3s;">
+          <div style="font-size:2.7rem; color:#43b0ff; margin-bottom:14px;">🔔</div>
+          <h4 style="color:#43b0ff; font-size:1.15rem; margin-bottom:10px;">تنبيهات فورية</h4>
+          <p style="color:#293a44; text-align:center;">إشعارات وتنبيهات لحظية عند العثور على بلاغات مطابقة أو تحديثات جديدة تخص المستخدم.</p>
+        </div>
+        <div style="flex:1 1 260px; min-width:240px; max-width:320px; background:#f0faff; border-radius:18px; box-shadow:0 2px 16px #ff7b5411; padding:32px 20px; display:flex; flex-direction:column; align-items:center; transition:box-shadow 0.3s,transform 0.3s;">
+          <div style="font-size:2.7rem; color:#ff7b54; margin-bottom:14px;">🛡️</div>
+          <h4 style="color:#ff7b54; font-size:1.15rem; margin-bottom:10px;">حماية وخصوصية متقدمة</h4>
+          <p style="color:#293a44; text-align:center;">تشفير البيانات وميزات خصوصية متقدمة لضمان أمان معلومات المستخدمين.</p>
+        </div>
+        <div style="flex:1 1 260px; min-width:240px; max-width:320px; background:#fff; border-radius:18px; box-shadow:0 2px 16px #43b0ff22; padding:32px 20px; display:flex; flex-direction:column; align-items:center; transition:box-shadow 0.3s,transform 0.3s;">
+          <div style="font-size:2.7rem; color:#43b0ff; margin-bottom:14px;">🚚</div>
+          <h4 style="color:#43b0ff; font-size:1.15rem; margin-bottom:10px;">خدمات توصيل آمنة</h4>
+          <p style="color:#293a44; text-align:center;">توفير حلول توصيل واسترجاع آمنة وموثوقة للمفقودات والمعثورات عبر شركاء معتمدين.</p>
+        </div>
+        <div style="flex:1 1 260px; min-width:240px; max-width:320px; background:#f0faff; border-radius:18px; box-shadow:0 2px 16px #ff7b5411; padding:32px 20px; display:flex; flex-direction:column; align-items:center; transition:box-shadow 0.3s,transform 0.3s;">
+          <div style="font-size:2.7rem; color:#ff7b54; margin-bottom:14px;">📊</div>
+          <h4 style="color:#ff7b54; font-size:1.15rem; margin-bottom:10px;">لوحات تحكم تفاعلية</h4>
+          <p style="color:#293a44; text-align:center;">لوحات تحكم متقدمة لعرض الإحصائيات وتتبع البلاغات وإدارة الحسابات بسهولة.</p>
+        </div>
+      </div>
+    </section>
+    <div style="display:flex; justify-content:center; gap:24px; margin-bottom:36px; flex-wrap:wrap;">
+      <a href="لقيا.html" style="background:#43b0ff; color:#fff; border:none; border-radius:30px; padding:16px 38px; font-size:1.15rem; font-weight:bold; box-shadow:0 2px 12px #43b0ff33; transition:background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s; text-decoration:none; margin:8px 0; display:inline-block;">
+        عرض صفحة دراسة الجدوى
+      </a>
+      <a href="C.html" style="background:#ff7b54; color:#fff; border:none; border-radius:30px; padding:16px 38px; font-size:1.15rem; font-weight:bold; box-shadow:0 2px 12px #ff7b5433; transition:background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s; text-decoration:none; margin:8px 0; display:inline-block;">
+        عرض صفحة استراتيجية التمويل
+      </a>
     </div>
-
-    <div class="section visible">
-      <h2>2. خطة العضوية المميزة (البريميوم)</h2>
-      <h3>2.1 مستويات العضوية المميزة</h3>
-      <h4>2.1.1 العضوية الفضية</h4>
-      <ul>
-        <li><b>السعر:</b> 2 دولار شهرياً أو 20 دولار سنوياً</li>
-        <li><b>الميزات:</b>
-          <ul>
-            <li>تجربة خالية من الإعلانات</li>
-            <li>أولوية عرض البلاغات (ظهور أعلى في نتائج البحث)</li>
-            <li>إشعارات فورية للمطابقات المحتملة</li>
-            <li>دعم فني عبر الرسائل النصية</li>
-          </ul>
-        </li>
-      </ul>
-      <h4>2.1.2 العضوية الذهبية</h4>
-      <ul>
-        <li><b>السعر:</b> 5 دولار شهرياً أو 50 دولار سنوياً</li>
-        <li><b>الميزات:</b>
-          <ul>
-            <li>جميع ميزات العضوية الفضية</li>
-            <li>تمييز البلاغات بعلامة "مميز"</li>
-            <li>إمكانية نشر حتى 10 صور لكل بلاغ (بدلاً من 3)</li>
-            <li>دعم فني عبر الهاتف</li>
-            <li>تقارير تحليلية شهرية عن نشاط الحساب</li>
-            <li>إمكانية تحديث البلاغات بشكل غير محدود</li>
-          </ul>
-        </li>
-      </ul>
-      <h4>2.1.3 العضوية الماسية (للشركات والمؤسسات)</h4>
-      <ul>
-        <li><b>السعر:</b> 15 دولار شهرياً أو 150 دولار سنوياً</li>
-        <li><b>الميزات:</b>
-          <ul>
-            <li>جميع ميزات العضوية الذهبية</li>
-            <li>حساب مؤسسي بمستخدمين متعددين (حتى 5 مستخدمين)</li>
-            <li>لوحة تحكم خاصة لإدارة البلاغات</li>
-            <li>تقارير تحليلية متقدمة</li>
-            <li>مدير حساب مخصص</li>
-            <li>تدريب مجاني على استخدام النظام</li>
-          </ul>
-        </li>
-      </ul>
-     
-      <h3>2.2 ميزات إبداعية ومبتكرة للأعضاء المميزين</h3>
-      <ul>
-        <li><b>2.2.1 نظام "الباحث الذكي":</b> خدمة مبتكرة تستخدم الذكاء الاصطناعي للبحث النشط عن المفقودات، مسح مستمر للبلاغات الجديدة ومطابقتها مع بلاغات المستخدم، تقارير أسبوعية عن احتمالات العثور على المفقودات.</li>
-        <li><b>2.2.2 خدمة "المساعد الافتراضي":</b> مساعد افتراضي يساعد في إنشاء بلاغات مفصلة وجذابة، اقتراحات لتحسين وصف المفقودات لزيادة فرص العثور عليها، تذكيرات ذكية لتحديث البلاغات وزيادة فرص المطابقة.</li>
-        <li><b>2.2.3 نظام "شارة الأمانة":</b> نظام فريد لتوثيق المستخدمين الموثوقين، شارات مميزة تظهر بجانب اسم المستخدم تدل على مستوى الثقة، زيادة فرص التفاعل والثقة بين المستخدمين.</li>
-        <li><b>2.2.4 خدمة "الحارس الشخصي":</b> مراقبة نشطة لحساب المستخدم وبلاغاته، تنبيهات فورية عند أي نشاط مشبوه، حماية إضافية ضد الاحتيال أو إساءة الاستخدام.</li>
-        <li><b>2.2.5 ميزة "المكافأة المضمونة":</b> نظام مبتكر لضمان المكافآت للعاثرين على المفقودات، إمكانية تحديد مكافأة مسبقاً وحفظها في حساب ضمان، زيادة الثقة والحافز لإعادة المفقودات.</li>
-        <li><b>2.2.6 خدمة "التوثيق المتقدم":</b> توثيق متقدم للمفقودات الثمينة، إصدار شهادة رقمية للمفقودات والمعثورات، سجل رقمي آمن لإثبات الملكية.</li>
-        <li><b>2.2.7 ميزة "الذكريات الرقمية":</b> خدمة لحفظ صور وتفاصيل المفقودات ذات القيمة العاطفية، إنشاء نسخة رقمية احتياطية للأغراض الثمينة، مساعدة في استعادة الذكريات حتى في حالة عدم العثور على المفقودات.</li>
-      </ul>
-      <h3>2.3 الإيرادات المتوقعة من العضويات المميزة</h3>
-      <ul>
-        <li><b>السنة الأولى:</b>
-          <ul>
-            <li>500 عضو فضي: 10,000 دولار</li>
-            <li>200 عضو ذهبي: 10,000 دولار</li>
-            <li>50 عضو ماسي: 7,500 دولار</li>
-            <li><b>المجموع:</b> 27,500 دولار</li>
-          </ul>
-        </li>
-        <li><b>السنة الثانية:</b>
-          <ul>
-            <li>1,000 عضو فضي: 20,000 دولار</li>
-            <li>400 عضو ذهبي: 20,000 دولار</li>
-            <li>100 عضو ماسي: 15,000 دولار</li>
-            <li><b>المجموع:</b> 55,000 دولار</li>
-          </ul>
-        </li>
-        <li><b>السنة الثالثة:</b>
-          <ul>
-            <li>2,000 عضو فضي: 40,000 دولار</li>
-            <li>800 عضو ذهبي: 40,000 دولار</li>
-            <li>200 عضو ماسي: 30,000 دولار</li>
-            <li><b>المجموع:</b> 110,000 دولار</li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-  
-    <div class="section">
-      <h2>3. خدمات إضافية مبتكرة لتعزيز الإيرادات</h2>
-      <ul>
-        <li><b>3.1 خدمة "الباحث المحترف"</b>
-          <ul>
-            <li><b>الوصف:</b> فريق متخصص يساعد في البحث عن المفقودات الثمينة</li>
-            <li><b>السعر:</b> 20-50 دولار حسب نوع المفقودات</li>
-            <li><b>الإيرادات المتوقعة:</b>
-              <ul>
-                <li>السنة الأولى: 5,000 دولار</li>
-                <li>السنة الثانية: 10,000 دولار</li>
-                <li>السنة الثالثة: 20,000 دولار</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><b>3.2 خدمة "التوصيل الآمن"</b>
-          <ul>
-            <li><b>الوصف:</b> خدمة توصيل المفقودات لأصحابها بطريقة آمنة وموثقة</li>
-            <li><b>السعر:</b> 5-15 دولار حسب المسافة والقيمة</li>
-            <li><b>الإيرادات المتوقعة:</b>
-              <ul>
-                <li>السنة الأولى: 3,000 دولار</li>
-                <li>السنة الثانية: 7,500 دولار</li>
-                <li>السنة الثالثة: 15,000 دولار</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><b>3.3 منتجات "لُقيا الذكية" سيتم استيراذها من الصين حسب تنسيق قد حدث</b>
-          <ul>
-            <li><b>الوصف:</b> منتجات ذكية لمنع قدان الأغراض (ملصقات QR، أجهزة تتبع بسيطة)</li>
-            <li><b>السعر:</b> 3-15 دولار حسب المنتج</li>
-            <li><b>الإيرادات المتوقعة:</b>
-              <ul>
-                <li>السنة الأولى: 4,500 دولار</li>
-                <li>السنة الثانية: 9,000 دولار</li>
-                <li>السنة الثالثة: 18,000 دولار</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><b>3.4 برنامج "شهادة الأمانة"</b>
-          <ul>
-            <li><b>الوصف:</b> شهادات رقمية وورقية للأفراد والمؤسسات المساهمة في إعادة المفقودات</li>
-            <li><b>السعر:</b> 10-30 دولار للشهادة</li>
-            <li><b>الإيرادات المتوقعة:</b>
-              <ul>
-                <li>السنة الأولى: 3,000 دولار</li>
-                <li>السنة الثانية: 6,000 دولار</li>
-                <li>السنة الثالثة: 12,000 دولار</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li><b>3.5 خدمة "التأمين المصغر"</b>
-          <ul>
-            <li><b>الوصف:</b> تأمين بسيط ضد فقدان الأغراض الثمينة</li>
-            <li><b>السعر:</b> 1-5 دولار شهرياً حسب قيمة الأغراض</li>
-            <li><b>الإيرادات المتوقعة:</b>
-              <ul>
-                <li>السنة الأولى: 6,000 دولار</li>
-                <li>السنة الثانية: 12,000 دولار</li>
-                <li>السنة الثالثة: 24,000 دولار</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <div class="section">
-      <h2>4. التحليل المالي المتكامل</h2>
-      <h3>4.1 ملخص الإيرادات المتوقعة</h3>
-      <ul>
-        <li><b>السنة الأولى:</b>
-          <ul>
-            <li>إعلانات Google: 3,000 دولار</li>
-            <li>إعلانات محلية: 6,000 دولار</li>
-            <li>عضويات مميزة: 27,500 دولار</li>
-            <li>خدمات إضافية: 21,500 دولار</li>
-            <li><b>المجموع:</b> 58,000 دولار</li>
-          </ul>
-        </li>
-        <li><b>السنة الثانية:</b>
-          <ul>
-            <li>إعلانات Google: 9,000 دولار</li>
-            <li>إعلانات محلية: 12,000 دولار</li>
-            <li>عضويات مميزة: 55,000 دولار</li>
-            <li>خدمات إضافية: 44,500 دولار</li>
-            <li><b>المجموع:</b> 120,500 دولار</li>
-          </ul>
-        </li>
-        <li><b>السنة الثالثة:</b>
-          <ul>
-            <li>إعلانات Google: 18,000 دولار</li>
-            <li>إعلانات محلية: 24,000 دولار</li>
-            <li>عضويات مميزة: 110,000 دولار</li>
-            <li>خدمات إضافية: 89,000 دولار</li>
-            <li><b>المجموع:</b> 241,000 دولار</li>
-          </ul>
-        </li>
-      </ul>
-      <h3>4.2 التكاليف الإضافية المتوقعة</h3>
-      <ul>
-        <li><b>تكاليف تطوير الميزات الإضافية:</b> 8,000 دولار (سنة أولى)</li>
-        <li><b>تكاليف تشغيل إضافية:</b>
-          <ul>
-            <li>السنة الأولى: 15,000 دولار</li>
-            <li>السنة الثانية: 25,000 دولار</li>
-            <li>السنة الثالثة: 40,000 دولار</li>
-          </ul>
-        </li>
-      </ul>
-      <h3>4.3 صافي الربح المتوقع</h3>
-      <ul>
-        <li><b>السنة الأولى:</b>
-          <ul>
-            <li>الإيرادات: 58,000 دولار</li>
-            <li>التكاليف الأساسية: 32,000 دولار</li>
-            <li>التكاليف الإضافية: 23,000 دولار</li>
-            <li><b>صافي الربح:</b> 3,000 دولار</li>
-          </ul>
-        </li>
-        <li><b>السنة الثانية:</b>
-          <ul>
-            <li>الإيرادات: 120,500 دولار</li>
-            <li>التكاليف الأساسية: 32,000 دولار</li>
-            <li>التكاليف الإضافية: 25,000 دولار</li>
-            <li><b>صافي الربح:</b> 63,500 دولار</li>
-          </ul>
-        </li>
-        <li><b>السنة الثالثة:</b>
-          <ul>
-            <li>الإيرادات: 241,000 دولار</li>
-            <li>التكاليف الأساسية: 32,000 دولار</li>
-            <li>التكاليف الإضافية: 40,000 دولار</li>
-            <li><b>صافي الربح:</b> 169,000 دولار</li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    
-    <div class="section">
-      <h2>5. خطة التنفيذ المرحلية</h2>
-      <h3>5.1 المرحلة الأولى (0-6 أشهر)</h3>
-      <ul>
-        <li>تطوير النسخة الأساسية من التطبيق</li>
-        <li>إعداد نظام الإعلانات البسيط (Google Ads)</li>
-        <li>إطلاق العضوية الفضية فقط</li>
-      </ul>
-      <h3>5.2 المرحلة الثانية (6-12 شهر)</h3>
-      <ul>
-        <li>إضافة نظام الإعلانات المحلية</li>
-        <li>إطلاق العضوية الذهبية</li>
-        <li>تطوير 3-4 ميزات إبداعية للأعضاء المميزين</li>
-      </ul>
-      <h3>5.3 المرحلة الثالثة (12-24 شهر)</h3>
-      <ul>
-        <li>إطلاق العضوية الماسية</li>
-        <li>تطوير جميع الميزات الإبداعية المتبقية</li>
-        <li>إطلاق الخدمات الإضافية المبتكرة</li>
-      </ul>
-    </div>
-    
-    <div class="section">
-      <h2>6. استراتيجيات التحويل للعضويات المدفوعة</h2>
-      <h3>6.1 استراتيجية "التجربة المجانية"</h3>
-      <ul>
-        <li>تقديم فترة تجربة مجانية للعضوية المميزة (7-14 يوم)</li>
-        <li>عرض إحصائيات نجاح العثور على المفقودات للأعضاء المميزين</li>
-      </ul>
-      <h3>6.2 استراتيجية "العروض المحدودة"</h3>
-      <ul>
-        <li>تقديم خصومات موسمية على العضويات السنوية</li>
-        <li>عروض خاصة للمستخدمين النشطين</li>
-      </ul>
-      <h3>6.3 استراتيجية "المكافآت التدريجية"</h3>
-      <ul>
-        <li>نظام نقاط للمستخدمين المجانيين يمكن استبدالها بميزات مدفوعة</li>
-        <li>مكافآت للمستخدمين الذين يساعدون في العثور على المفقودات</li>
-      </ul>
-    </div>
-    
-    <div class="section">
-      <h2>7. ضمان توافق الاستراتيجية مع رسالة المشروع</h2>
-      <h3>7.1 الحفاظ على مجانية الخدمات الأساسية</h3>
-      <ul>
-        <li>ضمان إمكانية استخدام جميع الوظائف الأساسية مجاناً</li>
-        <li>عدم حجب أي معلومات ضرورية عن المستخدمين المجانيين</li>
-      </ul>
-      <h3>7.2 سياسة الإعلانات الأخلاقية</h3>
-      <ul>
-        <li>منع الإعلانات غير الملائمة أو المضللة</li>
-        <li>التركيز على الإعلانات ذات الصلة والقيمة للمستخدمين</li>
-      </ul>
-      <h3>7.3 برنامج المسؤولية الاجتماعية</h3>
-      <ul>
-        <li>تخصيص 10% من الأرباح لدعم المبادرات المجتمعية</li>
-        <li>برنامج عضويات مجانية للفئات المحتاجة</li>
-      </ul>
-    </div>
-    <div class="section">
-      <h2>8. الخلاصة والتوصيات</h2>
-      <h3>8.1 ملخص الفرصة</h3>
-      <p>استراتيجية التمويل المتقدمة لمشروع <span class="highlight">لُقيا</span> تقدم نموذجاً متوازناً يجمع بين تحقيق الاستدامة المالية وتعزيز تجربة المستخدم. من خلال نظام إعلانات متوازن وخطة عضوية مميزة مبتكرة، يمكن للمشروع تحقيق إيرادات كافية لضمان استمراريته وتطويره، مع الحفاظ على رسالته الاجتماعية.</p>
-      <h3>8.2 التوصيات الرئيسية</h3>
-      <ul>
-        <li>البدء بتنفيذ استراتية الإعلانات والعضويات المميزة بشكل تدريجي</li>
-        <li>التركيز على تطوير الميزات الإبداعية التي تضيف قيمة حقيقية للمستخدمين</li>
-        <li>مراقبة تجربة المستخدم باستمرار لضمان عدم تأثرها سلباً بالإعلانات</li>
-        <li>تطوير نظام تحليلات متقدم لقياس أداء الاستراتيجية وتحسينها باستمرار</li>
-        <li>الحفاظ على التوازن بين تحقيق الإيرادات وخدمة المجتمع</li>
-      </ul>
-    </div>
-    <p style="text-align: center; color: #b1d8f7; margin-top: 40px;">
-      &copy; جميع الحقوق محفوظة لمشروع <span class="highlight">لُقيا</span> 2025
-    </p>
-  </div>
+    <section id="contact">
+      <h2>تواصل معنا</h2>
+      <p>للاستفسارات أو الشراكات أو الدعم، يرجى التواصل عبر الهاتف : <a href="mailto:info@loqia.com" style="color:#43b0ff;">+96777247870</a></p>
+    </section>
+  </main>
+  <footer>
+    جميع الحقوق محفوظة &copy; لُقيا 2025
+  </footer>
   <script>
-    // Dark mode toggle
-    const toggleBtn = document.getElementById('toggleDark');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    function setDarkMode(on) {
-      document.body.classList.toggle('dark-mode', on);
-      toggleBtn.textContent = on ? '☀️ وضع نهاري' : '🌙 وضع ليلي';
-      localStorage.setItem('loqia-dark', on ? '1' : '0');
-    }
-    toggleBtn.addEventListener('click', () => {
-      setDarkMode(!document.body.classList.contains('dark-mode'));
-    });
-    // Load preference
-    if (localStorage.getItem('loqia-dark') === '1' || (localStorage.getItem('loqia-dark') === null && prefersDark)) {
-      setDarkMode(true);
-    }
-
-    // نزول تدريجي تلقائي من الأعلى للأسفل بسرعة متوسطة
-    function autoScrollSectionsSequentially(durationPerSection = 1800) {
-      const sections = document.querySelectorAll('.section');
-      let currentSection = 0;
-      function scrollToSection(index) {
-        if (index >= sections.length) return;
-        const section = sections[index];
-        const sectionTop = section.getBoundingClientRect().top + window.scrollY - 30;
-        window.scrollTo({ top: sectionTop, behavior: 'smooth' });
-        setTimeout(() => {
-          scrollToSection(index + 1);
-        }, durationPerSection);
-      }
-      window.scrollTo(0, 0);
-      setTimeout(() => {
-        scrollToSection(1);
-      }, 600);
-    }
-    autoScrollSectionsSequentially();
-
-    // إظهار الأقسام تلقائياً بتسلسل زمني
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => section.classList.remove('visible'));
-    function revealSectionsSequentially(delay = 700) {
-      sections.forEach((section, i) => {
-        setTimeout(() => {
+    // Section fade-in on scroll
+    function revealSections() {
+      const sections = document.querySelectorAll('section');
+      const windowHeight = window.innerHeight;
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if (sectionTop < windowHeight - 80) {
           section.classList.add('visible');
-        }, i * delay);
+        }
       });
     }
-    revealSectionsSequentially(1800);
-
-    // إبراز النصوص تلقائياً
-    function animateHighlights() {
-      const highlights = document.querySelectorAll('.highlight');
-      highlights.forEach((el, i) => {
-        el.style.transition = 'box-shadow 0.7s, background 0.7s';
-        setTimeout(() => {
-          el.style.boxShadow = '0 0 16px 4px #43b0ff66';
-          el.style.background = document.body.classList.contains('dark-mode') ? 'linear-gradient(90deg, #293a44 10%, #43b0ff 70%)' : 'linear-gradient(90deg, #ffe1c9 10%, #b7f6f6 70%)';
-        }, 1000 + i * 600);
-        setTimeout(() => {
-          el.style.boxShadow = '';
-        }, 2000 + i * 600);
+    window.addEventListener('scroll', revealSections);
+    window.addEventListener('DOMContentLoaded', () => {
+      revealSections();
+      // Feature cards animation
+      const featureCards = document.querySelectorAll('.feature-card');
+      featureCards.forEach((card, i) => {
+        setTimeout(() => card.classList.add('visible'), 300 + i * 180);
       });
-    }
-    animateHighlights();
-
-    // تعطيل تفاعل الأشكال مع الماوس
-    // ظهور الأشكال يبقى كما هو (float animation)
+      // Smooth scroll for nav links
+      document.querySelectorAll('.navbar nav a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').slice(1);
+          const target = document.getElementById(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Animate section after scroll
+            setTimeout(() => target.classList.add('visible'), 400);
+          }
+          // Active nav link effect
+          document.querySelectorAll('.navbar nav a').forEach(a => a.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+      // Hamburger menu toggle
+      const menuToggle = document.querySelector('.menu-toggle');
+      const nav = document.querySelector('.navbar nav');
+      menuToggle.addEventListener('click', function() {
+        nav.classList.toggle('open');
+      });
+      // Close menu on nav link click (mobile)
+      nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 800) nav.classList.remove('open');
+        });
+      });
+    });
   </script>
 </body>
 </html>
